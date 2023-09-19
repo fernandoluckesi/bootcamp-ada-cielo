@@ -1,14 +1,18 @@
-import { Button } from "@mui/material";
+import {  Button } from "@mui/material";
+import { Background } from "../components/Background";
 
 interface HomeProps {
   switchTheme: () => void;
 }
 
 export const Home: React.FC<HomeProps> = ({ switchTheme }) => {
-  //Just to show how SwitchTheme is working, it should be removed
   return (
-    <Button onClick={switchTheme} color="primary">
-      Disable elevation
-    </Button>
+    <Background>
+      {/* To demonstrate the functionality of the Switch Theme, this should be removed later. */}
+      <Button onClick={switchTheme} color="success" >
+        Switch Theme
+      </Button>
+    </Background>
+
   );
 };

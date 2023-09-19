@@ -1,5 +1,4 @@
 import { PaletteMode, Theme, createTheme } from "@mui/material";
-import { green, red } from "@mui/material/colors";
 
 export enum ThemeType {
   Dark = 'dark',
@@ -7,25 +6,20 @@ export enum ThemeType {
 }
 
 const theme = (mode: PaletteMode): Theme => createTheme({
-  palette: {
+  palette: { 
     mode,
     primary: {
-      main: mode === ThemeType.Dark ? "#FFF" : "#00AEED",  
-      light: "#00AEED",
-      dark: "#231F20"
+      main: "#00AEED",  
     },
     secondary: {
-      main: '#231F20',
-      light: "#E0E566",
-      dark: "#E0E566"
+      main: mode === ThemeType.Dark ? "#706467" : "#fff",  
     },
-    success: {
-      main: green[500],
+    background: {
+      default: mode === ThemeType.Dark ? "#231F20" : "#d9d9d9", 
     },
-    error: {
-      main: red[500]
-    },
-  }
+  },
+
+  
 })
 
 

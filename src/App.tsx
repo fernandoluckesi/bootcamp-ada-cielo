@@ -1,26 +1,15 @@
 import { ThemeProvider as MuiThemeProvider, responsiveFontSizes } from "@mui/material/styles";
-import theme, { ThemeType } from "./theme";
-import { useState } from "react";
+import theme from "./theme";
 import { Home } from "./pages/home";
-import {  Paper } from "@mui/material";
-
-
+import { useThemeConfig } from "./hooks/themeConfig.hook";
+import CssBaseline from '@mui/material/CssBaseline';
 
 const App: React.FC = () => {
-  const [currentTheme, setCurrentTheme] = useState<ThemeType>(ThemeType.Dark);
-  const switchTheme = () => {
-    if(currentTheme === ThemeType.Dark) {
-      setCurrentTheme(ThemeType.Light);
-    } else {
-      setCurrentTheme(ThemeType.Dark);
-    }
-  }
-
+  const { currentTheme, switchTheme } = useThemeConfig()
   return (
     <MuiThemeProvider theme={responsiveFontSizes(theme(currentTheme))}>
-      <Paper >
+        <CssBaseline/>
         <Home switchTheme={switchTheme}/>
-      </Paper>
     </MuiThemeProvider>
   );
 }
