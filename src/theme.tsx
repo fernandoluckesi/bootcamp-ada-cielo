@@ -18,7 +18,15 @@ const theme = (mode: PaletteMode): Theme => createTheme({
       default: mode === ThemeType.Dark ? "#231F20" : "#d9d9d9", 
     },
   },
-
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          boxShadow: 'none',
+        }
+      }
+    }
+  }
   
 })
 
