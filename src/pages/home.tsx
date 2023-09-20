@@ -1,7 +1,6 @@
-import {  Button } from "@mui/material";
 import { Background } from "../components/Background";
-import { StarRatingSelector } from "../components/StarRatingSelector";
 import Products from "../components/Products";
+import { ButtonAppBar } from "../components/TopBar";
 
 interface HomeProps {
   switchTheme: () => void;
@@ -10,15 +9,8 @@ interface HomeProps {
 export const Home: React.FC<HomeProps> = ({ switchTheme }) => {
   return (
     <Background>
-      {/* To demonstrate the functionality of the Switch Theme, this should be removed later. */}
-      <Button onClick={switchTheme} color="success" >
-        Switch Theme
-      </Button>
-      {/* To demonstrate component, this should be removed later. */}
-      <StarRatingSelector rating={2} onClick={()=>console.log('')}></StarRatingSelector>
-      {/* To demonstrate component, this should be removed later. */}
-      <Products/>
+      <ButtonAppBar switchTheme={switchTheme} />
+      <Products />
     </Background>
-
   );
 };
