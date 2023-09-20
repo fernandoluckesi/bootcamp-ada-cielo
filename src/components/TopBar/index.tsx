@@ -7,6 +7,7 @@ import {
   FormGroup,
   Switch,
   Toolbar,
+  useTheme,
 } from "@mui/material";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import SearchIcon from "@mui/icons-material/Search";
@@ -19,31 +20,24 @@ import {
 
 interface HomeProps {
   switchTheme: () => void;
-  currentTheme: string;
 }
 
-export const ButtonAppBar: React.FC<HomeProps> = ({
-  switchTheme,
-  currentTheme,
-}) => {
-  const [searchField, setSearchField] = useState("");
-  const [shopCartQty, setShopCartQty] = useState(0);
-  const [modeTitle, setModeTitle] = useState("");
+export const ButtonAppBar: React.FC<HomeProps> = ({ switchTheme }) => {
+  const [searchField, setSearchField] = useState<string>("");
+  const [shopCartQty, setShopCartQty] = useState<number>(0);
+  const [currentModeTitle, setCurrentModeTitle] = useState<string>(
+    useTheme().palette.mode
+  );
+
+  const isDarkTheme = useTheme().palette.mode === "dark";
 
   useEffect(() => {
     setShopCartQty(1);
   }, []);
 
   useEffect(() => {
-    const current =
-      currentTheme.charAt(0).toUpperCase() + currentTheme.slice(1);
-    setModeTitle(current);
-  }, [currentTheme]);
-
-  const handleSearchProductsInList = (searchTerm: string) => {
-    setSearchField(searchTerm);
-    console.log(searchField, searchTerm);
-  };
+    setCurrentModeTitle(isDarkTheme ? "Dark" : "Light");
+  }, [isDarkTheme]);
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -51,7 +45,6 @@ export const ButtonAppBar: React.FC<HomeProps> = ({
         position="static"
         sx={{
           backgroundColor: "#00AEED",
-          color: currentTheme === "dark" ? "#323" : "#fff",
         }}
         enableColorOnDark
       >
@@ -62,7 +55,7 @@ export const ButtonAppBar: React.FC<HomeProps> = ({
           </TypographyComponent>
           <Search
             sx={{
-              color: currentTheme === "dark" ? "#fff" : "#323",
+              color: isDarkTheme ? "#fff" : "#323",
             }}
           >
             <SearchIconWrapper>
@@ -71,26 +64,21 @@ export const ButtonAppBar: React.FC<HomeProps> = ({
             <StyledInputBase
               placeholder="Pesquise aqui"
               inputProps={{ "aria-label": "search" }}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                handleSearchProductsInList(e.target.value)
-              }
+              value={searchField}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                setSearchField(e.target.value);
+                console.log(searchField);
+              }}
             />
           </Search>
           <FormGroup>
             <FormControlLabel
               control={
-                <Switch
-                  defaultChecked
-                  onClick={switchTheme}
-                  size="small"
-                  color="switchThemeColor"
-                />
+                <Switch defaultChecked onClick={switchTheme} size="small" />
               }
-              label={`${modeTitle} mode`}
-              color="switchThemeColor"
+              label={`${currentModeTitle} mode`}
             />
           </FormGroup>
-
           <Badge badgeContent={shopCartQty} color="error">
             <ShoppingCartOutlinedIcon color="switchThemeColor" />
           </Badge>
