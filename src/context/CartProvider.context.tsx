@@ -1,6 +1,6 @@
 import { ReactNode, createContext, useState } from "react";
-import { Product } from "./DataProvider.context"
 import { findProductById } from "../utils/search";
+import { Product } from "./ProductsProvider.context";
 
 export interface CartItem {
   product: Product
@@ -11,7 +11,7 @@ interface CartProvider {
   getTotalOfProducts: ()=> number;
   cart: CartItem[];
   addToCart: (cartItem: CartItem)=>  void
-  removeFromCart: (id: Product['id']) => void
+  removeProductFromCartById: (id: Product['id']) => void
 }
 
 interface ProductsProviderProps {
@@ -45,7 +45,7 @@ export const CartProvider: React.FC<ProductsProviderProps> = ({children}) => {
     setCart(updatedCart);
   }
 
-  const removeFromCart = (productId: Product['id']) => { 
+  const removeProductFromCartById = (productId: Product['id']) => { 
     const productFound = findProductById(productId, cart)
     if(productFound) {
       const updatedCart = cart.filter(item => item.product.id !== productId);
@@ -60,7 +60,7 @@ export const CartProvider: React.FC<ProductsProviderProps> = ({children}) => {
         getTotalOfProducts,
         addToCart,
         cart, 
-        removeFromCart
+        removeProductFromCartById
       }}>
       {children}
     </CartContext.Provider>
