@@ -7,6 +7,7 @@ import { Home } from "./pages/home";
 import { useThemeConfig } from "./hooks/themeConfig.hook";
 import CssBaseline from "@mui/material/CssBaseline";
 import ProductsProvider from "./context/DataProvider.context";
+import { CartProvider } from "./context/CartProvider.context";
 
 const App: React.FC = () => {
   const { currentTheme, switchTheme } = useThemeConfig();
@@ -14,7 +15,10 @@ const App: React.FC = () => {
     <MuiThemeProvider theme={responsiveFontSizes(theme(currentTheme))}>
       <ProductsProvider>
         <CssBaseline />
-        <Home switchTheme={switchTheme} />
+        <CartProvider>
+          <CssBaseline />
+          <Home switchTheme={switchTheme} />
+        </CartProvider>
       </ProductsProvider>
     </MuiThemeProvider>
   );

@@ -1,7 +1,7 @@
 // DataContext.js
 import React, { createContext, ReactNode, useEffect, useState } from "react";
 
-interface Product {
+export interface Product {
   id: string;
   name: string;
   avatar: string;
@@ -22,7 +22,7 @@ interface ProductsProviderProps {
   children: ReactNode;
 }
 
-const DataContext = createContext<ProductContextProps | null>(null);
+export const ProductsContext = createContext<ProductContextProps>({} as ProductContextProps);
 
 export const ProductsProvider: React.FC<ProductsProviderProps> = ({
   children,
@@ -50,18 +50,17 @@ export const ProductsProvider: React.FC<ProductsProviderProps> = ({
 
   
 
-  const filter = ({ category, price, rating, name }: Partial<Product>) => {
+  const filter = ({ category, price, rating, name }: Partial<Pick<Product, 'category' | 'price' | 'rating' | 'name' >>) => {
     //funcão de filtro
   }
 
   return (
-    <DataContext.Provider
+    <ProductsContext.Provider
       value={{ refreshData: () => getData(), changePage: getData, filter, products: productFilteredList }}
     >
       {children}
-    </DataContext.Provider>
+    </ProductsContext.Provider>
   );
 };
 
-export default ProductsProvider;
 
