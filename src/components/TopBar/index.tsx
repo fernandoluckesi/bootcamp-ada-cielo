@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   AppBar,
   Badge,
@@ -17,6 +17,9 @@ import {
   StyledInputBase,
   TypographyComponent,
 } from "./styles";
+import { CartContext } from "../../context/CartProvider.context";
+import { capitalizeFirstLetter } from "../../utils/search";
+import { ThemeType } from "../../theme";
 
 interface HomeProps {
   switchTheme: () => void;
@@ -24,20 +27,8 @@ interface HomeProps {
 
 export const ButtonAppBar: React.FC<HomeProps> = ({ switchTheme }) => {
   const [searchField, setSearchField] = useState<string>("");
-  const [shopCartQty, setShopCartQty] = useState<number>(0);
-  const [currentModeTitle, setCurrentModeTitle] = useState<string>(
-    useTheme().palette.mode
-  );
-
-  const isDarkTheme = useTheme().palette.mode === "dark";
-
-  useEffect(() => {
-    setShopCartQty(1);
-  }, []);
-
-  useEffect(() => {
-    setCurrentModeTitle(isDarkTheme ? "Dark" : "Light");
-  }, [isDarkTheme]);
+  const { getTotalOfProducts } = useContext(CartContext)
+  const currentThemeName = useTheme().palette.mode
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -55,7 +46,7 @@ export const ButtonAppBar: React.FC<HomeProps> = ({ switchTheme }) => {
           </TypographyComponent>
           <Search
             sx={{
-              color: isDarkTheme ? "#fff" : "#323",
+              color: currentThemeName === ThemeType.Dark ? "#fff" : "#323",
             }}
           >
             <SearchIconWrapper>
@@ -76,10 +67,10 @@ export const ButtonAppBar: React.FC<HomeProps> = ({ switchTheme }) => {
               control={
                 <Switch defaultChecked onClick={switchTheme} size="small" />
               }
-              label={`${currentModeTitle} mode`}
+              label={`${capitalizeFirstLetter(currentThemeName)} mode`}
             />
           </FormGroup>
-          <Badge badgeContent={shopCartQty} color="error">
+          <Badge badgeContent={getTotalOfProducts()} color="error">
             <ShoppingCartOutlinedIcon color="switchThemeColor" />
           </Badge>
         </Toolbar>
