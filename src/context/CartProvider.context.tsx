@@ -1,6 +1,8 @@
-import { ReactNode, createContext, useState } from "react";
+import { ReactNode, createContext, useEffect, useState } from "react";
 import { findProductById } from "../utils/search";
 import { Product } from "./ProductsProvider.context";
+import CartDataSource from "../services/storage/datasource/cart.datasource";
+
 
 export interface CartItem {
   product: Product
@@ -23,6 +25,13 @@ export const CartContext = createContext<CartProvider>({} as CartProvider);
 export const CartProvider: React.FC<ProductsProviderProps> = ({children}) => {
   const [cart, setCart] = useState<CartItem[]>([])
 
+  useEffect(() => {
+    const cartData = CartDataSource.getCartData
+    if(cartData){
+      setCart(cartData)
+    }
+  },[])
+
   const addToCart = (cartItem: CartItem) => {
     const productFound = findProductById(cartItem.product.id, cart)
     if (productFound) {
@@ -42,7 +51,12 @@ export const CartProvider: React.FC<ProductsProviderProps> = ({children}) => {
       }
       return item;
     });
-    setCart(updatedCart);
+    updateCart(updatedCart);
+  }
+
+  const updateCart = (item: CartItem[]) => {
+    setCart(item);
+    CartDataSource.setCartData = item;
   }
 
   const removeProductFromCartById = (productId: Product['id']) => { 
@@ -66,3 +80,6 @@ export const CartProvider: React.FC<ProductsProviderProps> = ({children}) => {
     </CartContext.Provider>
   )
 } 
+
+
+

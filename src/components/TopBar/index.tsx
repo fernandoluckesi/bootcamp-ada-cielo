@@ -17,6 +17,8 @@ import {
   StyledInputBase,
   TypographyComponent,
 } from "./styles";
+import { useCart } from "../../hooks/useCart.hook";
+import { ThemeType } from "../../theme";
 
 interface HomeProps {
   switchTheme: () => void;
@@ -24,20 +26,14 @@ interface HomeProps {
 
 export const ButtonAppBar: React.FC<HomeProps> = ({ switchTheme }) => {
   const [searchField, setSearchField] = useState<string>("");
-  const [shopCartQty, setShopCartQty] = useState<number>(0);
-  const [currentModeTitle, setCurrentModeTitle] = useState<string>(
-    useTheme().palette.mode
-  );
+  const [totalOfProducts, setTotalOfProducts] = useState<number>(0);
+  const {cart, getTotalOfProducts} = useCart()
 
-  const isDarkTheme = useTheme().palette.mode === "dark";
+  useEffect(()=> {
+    setTotalOfProducts(getTotalOfProducts())
+  },[cart])
 
-  useEffect(() => {
-    setShopCartQty(1);
-  }, []);
-
-  useEffect(() => {
-    setCurrentModeTitle(isDarkTheme ? "Dark" : "Light");
-  }, [isDarkTheme]);
+  const theme = useTheme().palette.mode
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -55,7 +51,7 @@ export const ButtonAppBar: React.FC<HomeProps> = ({ switchTheme }) => {
           </TypographyComponent>
           <Search
             sx={{
-              color: isDarkTheme ? "#fff" : "#323",
+              color: theme === ThemeType.Dark ? "#fff" : "#323",
             }}
           >
             <SearchIconWrapper>
@@ -76,10 +72,10 @@ export const ButtonAppBar: React.FC<HomeProps> = ({ switchTheme }) => {
               control={
                 <Switch defaultChecked onClick={switchTheme} size="small" />
               }
-              label={`${currentModeTitle} mode`}
+              label={`${capitalizeFirstLetter(theme)} mode`}
             />
           </FormGroup>
-          <Badge badgeContent={shopCartQty} color="error">
+          <Badge badgeContent={totalOfProducts} color="error">
             <ShoppingCartOutlinedIcon color="switchThemeColor" />
           </Badge>
         </Toolbar>
@@ -87,3 +83,11 @@ export const ButtonAppBar: React.FC<HomeProps> = ({ switchTheme }) => {
     </Box>
   );
 };
+
+
+function capitalizeFirstLetter(str: string): string {
+  if (!str || typeof str !== "string") {
+      return "";
+  }
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
