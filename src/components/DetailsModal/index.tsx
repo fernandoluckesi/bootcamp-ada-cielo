@@ -5,13 +5,10 @@ import {
   ModalContent,
   NavigateBeforeButton,
   NavigateNextButton,
-  ProductDescription,
   ProductImage,
   ProductInfoContainer,
   ProductTagsContainer,
-  ProductTitle,
   ProductsInCartInfo,
-  QuantityOfProducts,
   QuantityOfProductsManagerContainer,
   RemoveButton,
 } from "./styles";
@@ -20,8 +17,9 @@ import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import StarIcon from "@mui/icons-material/Star";
 import ErrorIcon from "@mui/icons-material/Error";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import RealCurrency from "../../assets/icons/real-currency.png";
-import { Typography } from "@mui/material";
+import { Divider, Typography } from "@mui/material";
 import { ProductInfoTag } from "../ProductInfoTag";
 
 export const DetailsModal: React.FC = () => {
@@ -33,7 +31,7 @@ export const DetailsModal: React.FC = () => {
       <ModalContent>
         <ProductImage src="https://cinepop.com.br/wp-content/uploads/2023/01/batman-cinepop.jpeg.webp" />
         <ProductInfoContainer>
-          <Typography variant="h4" fontWeight={"bold"}>
+          <Typography variant="h4" fontWeight={"bold"} gutterBottom>
             Tasty Plastic Shirt
           </Typography>
           <Typography variant="subtitle2">
@@ -43,13 +41,13 @@ export const DetailsModal: React.FC = () => {
           <ProductTagsContainer>
             <ProductInfoTag
               icon={<img src={RealCurrency} />}
-              size="small"
+              size="large"
               text="198.00"
             />
 
             <ProductInfoTag
-              icon={<StarIcon sx={{ color: "#FCC123", fontSize: 30 }} />}
-              size="small"
+              icon={<StarIcon sx={{ color: "#FCC123", fontSize: 37 }} />}
+              size="large"
               text="3.1"
             />
             <ProductInfoTag
@@ -58,22 +56,29 @@ export const DetailsModal: React.FC = () => {
               text="Categoria"
             />
           </ProductTagsContainer>
+
+          <Divider sx={{ marginBottom: 3 }} />
           <QuantityOfProductsManagerContainer>
-            <QuantityOfProducts>
-              <TextField
-                id="outlined-basic"
-                label="Outlined"
-                variant="outlined"
-                sx={{ width: "97px" }}
-                value={1}
-              />
-            </QuantityOfProducts>
-            <AddButton>Add</AddButton>
-            <RemoveButton>Remove</RemoveButton>
-            <ProductsInCartInfo>
-              Produto no carrinho (12 unidades)
-            </ProductsInCartInfo>
+            <TextField
+              id="outlined-basic"
+              label="Quantidade"
+              variant="outlined"
+              sx={{ width: "97px" }}
+              value={1}
+            />
+
+            <AddButton>
+              <Typography variant="subtitle1" fontWeight={"bold"}>
+                Adicionar
+              </Typography>
+            </AddButton>
+            <RemoveButton>
+              <DeleteOutlineIcon sx={{ color: "#FF8989", fontSize: 20 }} />
+            </RemoveButton>
           </QuantityOfProductsManagerContainer>
+          <ProductsInCartInfo>
+            Produto no carrinho (12 unidades)
+          </ProductsInCartInfo>
         </ProductInfoContainer>
       </ModalContent>
       <NavigateNextButton>
