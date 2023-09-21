@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   AddButton,
   MainContainer,
@@ -6,6 +6,7 @@ import {
   NavigateBeforeButton,
   NavigateNextButton,
   ProductImage,
+  ProductImageContainer,
   ProductInfoContainer,
   ProductTagsContainer,
   ProductsInCartInfo,
@@ -23,13 +24,31 @@ import { Divider, Typography } from "@mui/material";
 import { ProductInfoTag } from "../ProductInfoTag";
 
 export const DetailsModal: React.FC = () => {
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsSmallScreen(window.innerWidth < 1030);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    handleResize();
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   return (
     <MainContainer>
       <NavigateBeforeButton>
         <NavigateBeforeIcon />
       </NavigateBeforeButton>
       <ModalContent>
-        <ProductImage src="https://cinepop.com.br/wp-content/uploads/2023/01/batman-cinepop.jpeg.webp" />
+        <ProductImageContainer>
+          <ProductImage />
+        </ProductImageContainer>
         <ProductInfoContainer>
           <Typography variant="h4" fontWeight={"bold"} gutterBottom>
             Tasty Plastic Shirt
@@ -40,19 +59,32 @@ export const DetailsModal: React.FC = () => {
           </Typography>
           <ProductTagsContainer>
             <ProductInfoTag
-              icon={<img src={RealCurrency} />}
-              size="large"
+              icon={
+                <img
+                  src={RealCurrency}
+                  style={{ width: isSmallScreen ? 20 : 36 }}
+                />
+              }
+              size={isSmallScreen ? "small" : "large"}
               text="198.00"
             />
 
             <ProductInfoTag
-              icon={<StarIcon sx={{ color: "#FCC123", fontSize: 37 }} />}
-              size="large"
+              icon={
+                <StarIcon
+                  sx={{ color: "#FCC123", fontSize: isSmallScreen ? 24 : 37 }}
+                />
+              }
+              size={isSmallScreen ? "small" : "large"}
               text="3.1"
             />
             <ProductInfoTag
-              icon={<ErrorIcon sx={{ color: "#459451", fontSize: 37 }} />}
-              size="large"
+              icon={
+                <ErrorIcon
+                  sx={{ color: "#459451", fontSize: isSmallScreen ? 24 : 37 }}
+                />
+              }
+              size={isSmallScreen ? "small" : "large"}
               text="Categoria"
             />
           </ProductTagsContainer>
