@@ -16,17 +16,10 @@ interface ProductContextProps {
   filter: (input: Partial<Product>) => void;
   refreshData: () => void;
   changePage: (pageNumber: number) => Promise<void>;
-  loading: boolean;
-  paginationInfo: PaginationInfo
 }
 
 interface ProductsProviderProps {
   children: ReactNode;
-}
-
-interface PaginationInfo {
-  isNextPageAvailable: boolean;
-  currentPage: number; 
 }
 
 export const ProductsContext = createContext<ProductContextProps>({} as ProductContextProps);
@@ -34,31 +27,20 @@ export const ProductsContext = createContext<ProductContextProps>({} as ProductC
 export const ProductsProvider: React.FC<ProductsProviderProps> = ({
   children,
 }) => {
-  const [loading, setLoading] = useState<boolean>(false);
+
   const [productList, setProductList] = useState<Product[]>([])
   const [productFilteredList, setProductFilteredList] = useState<Product[]>([])
-  const [paginationInfo, setPaginationInfo] = useState<PaginationInfo>({currentPage: 1, isNextPageAvailable: true})
+
 
   const getData = async (pageNumber: number = 1, pageSize: number = 12) => {
-    setLoading(true)
     try {
       const response = await fetch(
-        `http://localhost:3000/products?pageSize=${pageSize + 1}&pageNumber=${pageNumber}`
+        `http://localhost:3000/products?pageSize=${pageSize}&pageNumber=${pageNumber}`
       );
       const products: Product[] = await response.json();
-
-      setPaginationInfo({
-        isNextPageAvailable: products.length > pageSize,
-        currentPage: pageNumber,
-      })
-
-      setProductList(products.slice(0, pageSize))
-
-     
+      setProductList(products)
     } catch (error) {
       console.error("Error: DataProvider.context.tsx:41 ~ getData:", error);
-    } finally {
-      setLoading(false)
     }
   };
 
@@ -74,14 +56,7 @@ export const ProductsProvider: React.FC<ProductsProviderProps> = ({
 
   return (
     <ProductsContext.Provider
-      value={{ 
-        refreshData: () => getData(), 
-        changePage: getData, 
-        filter, 
-        products: productFilteredList, 
-        loading,
-        paginationInfo
-      }}
+      value={{ refreshData: () => getData(), changePage: getData, filter, products: productFilteredList }}
     >
       {children}
     </ProductsContext.Provider>
