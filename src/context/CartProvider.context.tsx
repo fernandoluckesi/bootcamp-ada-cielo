@@ -63,7 +63,7 @@ export const CartProvider: React.FC<ProductsProviderProps> = ({children}) => {
     const productFound = findProductById(productId, cart)
     if(productFound) {
       const updatedCart = cart.filter(item => item.product.id !== productId);
-      setCart(updatedCart);
+      updateCart(updatedCart);
     }
   }
 

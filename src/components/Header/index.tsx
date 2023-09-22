@@ -17,7 +17,6 @@ const ProductInfo: React.FC = () => {
       display="flex"
       alignItems="center"
       justifyContent="space-between"
-      padding="2%"
     >
       <Box alignItems={"flex-start"}>
         <Typography variant="h5" sx={{ fontWeight: "bold" }}>
@@ -25,7 +24,6 @@ const ProductInfo: React.FC = () => {
         </Typography>
         <Stack
           flexDirection={"row"}
-          gap={1}
         >
           {loading ? (
             <CircularProgress thickness={3} size={8} />
@@ -35,7 +33,7 @@ const ProductInfo: React.FC = () => {
             </Typography>
           )}
           <Typography variant="body2" color="textSecondary">
-            results
+            &nbsp;results
           </Typography>
         </Stack>
       </Box>
