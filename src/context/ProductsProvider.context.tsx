@@ -51,10 +51,9 @@ export const ProductsProvider: React.FC<ProductsProviderProps> = ({
         isNextPageAvailable: products.length > pageSize,
         currentPage: pageNumber,
       })
-
+      console.log(productList)
       setProductList(products.slice(0, pageSize))
 
-     
     } catch (error) {
       console.error("Error: DataProvider.context.tsx:41 ~ getData:", error);
     } finally {
