@@ -1,5 +1,5 @@
-import React, { useContext } from 'react';
-import { Grid, Card, CardContent, CardMedia, Typography, Box } from '@mui/material';
+import { useContext } from 'react';
+import { Grid, Card, CardContent, CardMedia, Typography, Box, Toolbar } from '@mui/material';
 import PaidIcon from '@mui/icons-material/Paid';
 import StarsIcon from '@mui/icons-material/Stars';
 import { ProductsContext } from '../../context/ProductsProvider.context';
@@ -15,6 +15,8 @@ const App = () => {
   }
 
   return (
+    <Box component={'main'} sx={{flexFlow: 1, p: 3}}>
+      <Toolbar />
       <Grid container spacing={2}>
         {products.map((product) => (
           <Grid item xs={12} sm={6} md={3} key={product.id}>
@@ -48,6 +50,7 @@ const App = () => {
           </Grid>
         ))}
       </Grid>
+    </Box>
   );
 };
 

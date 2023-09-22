@@ -5,12 +5,14 @@ import {
   Box,
   FormControlLabel,
   FormGroup,
+  IconButton,
   Switch,
   Toolbar,
   useTheme,
 } from "@mui/material";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import SearchIcon from "@mui/icons-material/Search";
+import MenuIcon from "@mui/icons-material/Menu";
 import {
   Search,
   SearchIconWrapper,
@@ -38,8 +40,9 @@ export const ButtonAppBar: React.FC<HomeProps> = ({ switchTheme }) => {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar
-        position="static"
+        position="fixed"
         sx={{
+          zIndex: (theme) => theme.zIndex.drawer + 1,
           backgroundColor: "#00AEED",
         }}
         enableColorOnDark
@@ -49,6 +52,15 @@ export const ButtonAppBar: React.FC<HomeProps> = ({ switchTheme }) => {
           <TypographyComponent variant="h6">
             Cielo Marketplace
           </TypographyComponent>
+          <IconButton
+            color="switchThemeColor"
+            aria-label="open drawer"
+            edge="start"
+            onClick={() => console.log("teste")}
+            sx={{ mr: 2, display: { lg: "none" } }}
+          >
+            <MenuIcon />
+          </IconButton>
           <Search
             sx={{
               color: theme === ThemeType.Dark ? "#fff" : "#323",
