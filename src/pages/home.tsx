@@ -13,7 +13,7 @@ export const Home: React.FC<HomeProps> = ({ switchTheme }) => {
   return (
     <Background>
       <ButtonAppBar switchTheme={switchTheme} />
-      <ProductInfo productCount={10} onUpdateClick={() => { /* lógica de atualização aqui */ }} />
+      <ProductInfo />
       <Products />
       <Pagination />
       <Footer />

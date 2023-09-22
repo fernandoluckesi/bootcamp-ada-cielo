@@ -36,14 +36,14 @@ export const ProductsProvider: React.FC<ProductsProviderProps> = ({
 }) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [productList, setProductList] = useState<Product[]>([])
-  const [productFilteredList, setProductFilteredList] = useState<Product[]>([])
+  // const [productFilteredList, setProductFilteredList] = useState<Product[]>([])
   const [paginationInfo, setPaginationInfo] = useState<PaginationInfo>({currentPage: 1, isNextPageAvailable: true})
 
   const getData = async (pageNumber: number = 1, pageSize: number = 12) => {
     setLoading(true)
     try {
       const response = await fetch(
-        `http://localhost:3000/products?pageSize=${pageSize + 1}&pageNumber=${pageNumber}`
+        `${import.meta.env.VITE_BASE_URL}/products?pageSize=${pageSize + 1}&pageNumber=${pageNumber}`
       );
       const products: Product[] = await response.json();
 
@@ -74,10 +74,11 @@ export const ProductsProvider: React.FC<ProductsProviderProps> = ({
   return (
     <ProductsContext.Provider
       value={{ 
-        refreshData: () => getData(), 
+        refreshData: getData, 
         changePage: getData, 
         filter, 
-        products: productFilteredList, 
+        products: productList, 
+        // products: productFilteredList, 
         loading,
         paginationInfo
       }}
