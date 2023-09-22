@@ -17,9 +17,9 @@ export const Home: React.FC<HomeProps> = ({ switchTheme }) => {
     <Background>
       <ButtonAppBar switchTheme={switchTheme} />
       <Sidebar />
-      <Box component={"main"} display={"flex"} flexDirection="column" height="100vh" sx={{ flex: 1 }}>
+      <Box component={"main"} display={"flex"} flexDirection="column" height="100vh" flex={1} >
         <Toolbar />
-        <Box sx={{ display: "flex", flexDirection: "column", gap: 4, py: 2, px: 4, flex:1 }}>
+        <Box display="flex" flexDirection="column" gap={4} flex={1} paddingX={4} paddingY={2}>
           <ProductInfo />
           <Products />
           <Pagination />
