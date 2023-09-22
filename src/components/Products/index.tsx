@@ -14,15 +14,14 @@ import { ProductsContext } from "../../context/ProductsProvider.context";
 export default function ProductsList() {
   const { products } = useContext(ProductsContext);
 
-  // Verifica o tamanho do array products
   if (products.length === 0) {
     return (
       <Box
-        minHeight="55vh"
         flexDirection={"row"}
         display={"flex"}
         justifyContent={"center"}
         alignItems={"center"}
+        minHeight="60vh"
       >
         <Typography variant="h6">
           We didn't find products for the selected filters. How about trying
@@ -33,7 +32,7 @@ export default function ProductsList() {
   }
 
   return (
-    <Grid container spacing={2}>
+    <Grid container spacing={2} minHeight={"60vh"}>
       {products.map((product) => (
         <Grid item xs={12} sm={6} md={3} key={product.id}>
           <Card variant="outlined">
@@ -80,4 +79,5 @@ export default function ProductsList() {
     </Grid>
   );
 }
+
 

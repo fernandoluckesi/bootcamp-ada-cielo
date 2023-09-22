@@ -13,12 +13,13 @@ interface HomeProps {
 
 export const Home: React.FC<HomeProps> = ({ switchTheme }) => {
   return (
+    
     <Background>
       <ButtonAppBar switchTheme={switchTheme} />
       <Sidebar />
-      <Box component={"main"} sx={{ flexFlow: 1 }}>
+      <Box component={"main"} display={"flex"} flexDirection="column" height="100vh" sx={{ flex: 1 }}>
         <Toolbar />
-        <Box sx={{ display: "flex", flexDirection: "column", gap: 4, py: 2, px: 4 }}>
+        <Box sx={{ display: "flex", flexDirection: "column", gap: 4, py: 2, px: 4, flex:1 }}>
           <ProductInfo />
           <Products />
           <Pagination />
@@ -26,5 +27,6 @@ export const Home: React.FC<HomeProps> = ({ switchTheme }) => {
         <Footer />
       </Box>
     </Background>
+        
   );
 };

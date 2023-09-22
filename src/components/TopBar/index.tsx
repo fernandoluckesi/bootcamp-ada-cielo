@@ -40,7 +40,7 @@ export const ButtonAppBar: React.FC<HomeProps> = ({ switchTheme }) => {
   console.log(theme);
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box >
       <AppBar
         position="fixed"
         sx={{
