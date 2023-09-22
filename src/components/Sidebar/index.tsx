@@ -11,6 +11,7 @@ import {
 import { StarRatingSelector } from "../StarRatingSelector";
 import { NumericFormat, NumericFormatProps } from "react-number-format";
 import React, { useState } from "react";
+import { useSidebar } from "../../hooks/useSidebar.hook";
 
 interface CustomProps {
   onChange: (event: { target: { name: string; value: string } }) => void;
@@ -46,6 +47,7 @@ const NumericFormatCustom = React.forwardRef<NumericFormatProps, CustomProps>(
 export const Sidebar = () => {
   const [minPrice, setMinPrice] = useState<string>("0");
   const [maxPrice, setMaxPrice] = useState<string>("0");
+  const { handleSidebarStatus, open } = useSidebar();
 
   const handleMinPriceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setMinPrice(event.target.value);
@@ -150,10 +152,10 @@ export const Sidebar = () => {
 
       <SwipeableDrawer
         anchor={"left"}
-        open={false}
-        onClose={() => null}
-        onOpen={() => null}
-        sx={{ width: drawerWidth }}
+        open={open}
+        onClose={() => handleSidebarStatus(false)}
+        onOpen={() => handleSidebarStatus(true)}
+        sx={{ width: "100%", maxWidth: drawerWidth }}
       >
         {drawerContent}
       </SwipeableDrawer>

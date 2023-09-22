@@ -66,6 +66,13 @@ const theme = (mode: PaletteMode): Theme =>
           },
         },
       },
+      MuiDrawer: {
+        styleOverrides: {
+          paper: {
+            backgroundColor: mode === ThemeType.Dark ? "#231F20" : "#d9d9d9",
+          },
+        },
+      },
     },
   });
 

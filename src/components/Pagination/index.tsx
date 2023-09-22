@@ -1,15 +1,14 @@
-import React, { useContext } from 'react';
 import { ButtonGroup, Button, Stack, Tooltip } from '@mui/material';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import { ProductsContext } from '../../context/ProductsProvider.context';
+import { useProducts } from '../../hooks/useProducts.hook';
 
 export const Pagination = () => {
-  const { paginationInfo, changePage } = useContext(ProductsContext);
+  const { paginationInfo, changePage } = useProducts();
   const { currentPage, isNextPageAvailable } = paginationInfo;
 
   return (
-    <Stack spacing={1} justifyContent="center" alignItems="center" marginTop="2%">
+    <Stack spacing={1} justifyContent="center" alignItems="center">
       <ButtonGroup
         variant="contained"
         size="large"

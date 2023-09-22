@@ -10,7 +10,7 @@ const Footer = () => {
       display="flex" // Exibe os elementos em linha
       alignItems="center" // Alinha os elementos verticalmente
       justifyContent="space-between" // Espaçamento entre os elementos
-      marginTop="2%"
+      marginTop="32px"
     >
       <Typography variant="body2">
         © 2023 Cielo MarketPlace. Criado por Carlos, Fernando, Felipe, Lucas e Matheus.
