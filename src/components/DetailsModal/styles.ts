@@ -1,13 +1,26 @@
 import { Typography } from "@mui/material";
 import styled from "styled-components";
 
-export const MainContainer = styled.div``;
+export const MainContainer = styled.div`
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  left: 0;
+  height: 100%;
+  justify-content: center;
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  transition: opacity 0.3s;
+  z-index: 1;
+  width: 100%;
+`;
 
 export const ModalContent = styled.div`
   align-items: center;
-  border: 1px solid red;
   justify-content: center;
   margin: 0 auto;
+  max-height: 350px;
   max-width: 1000px;
   height: 100%;
   width: 80%;
@@ -35,7 +48,6 @@ export const ProductImage = styled.div`
 `;
 
 export const ProductInfoContainer = styled.div`
-  border: 1px solid blue;
   display: flex;
   flex-direction: column;
   padding: 20px;
@@ -48,7 +60,6 @@ export const ProductDescription = styled.p``;
 
 export const ProductTagsContainer = styled.div`
   align-items: center;
-  border: 1px solid red;
   display: flex;
   gap: 16px;
   margin: 10px 0 20px;

@@ -20,10 +20,17 @@ import StarIcon from "@mui/icons-material/Star";
 import ErrorIcon from "@mui/icons-material/Error";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import RealCurrency from "../../assets/icons/real-currency.png";
-import { Divider, Typography } from "@mui/material";
+import { Divider, Typography, useTheme } from "@mui/material";
 import { ProductInfoTag } from "../ProductInfoTag";
+import { ThemeType } from "../../theme";
 
-export const DetailsModal: React.FC = () => {
+interface DetailsModalProps {
+  setIsOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export const DetailsModal: React.FC<DetailsModalProps> = ({
+  setIsOpenModal,
+}) => {
   const [isSmallScreen, setIsSmallScreen] = useState(false);
 
   useEffect(() => {
@@ -40,8 +47,20 @@ export const DetailsModal: React.FC = () => {
     };
   }, []);
 
+  const theme = useTheme().palette.mode;
+
+  const closeModal = () => {
+    setIsOpenModal(false);
+  };
+
+  const handleOutModalClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (e.target === e.currentTarget) {
+      closeModal();
+    }
+  };
+
   return (
-    <MainContainer>
+    <MainContainer onClick={(e) => handleOutModalClick(e)}>
       <NavigateBeforeButton>
         <NavigateBeforeIcon />
       </NavigateBeforeButton>
@@ -49,7 +68,11 @@ export const DetailsModal: React.FC = () => {
         <ProductImageContainer>
           <ProductImage />
         </ProductImageContainer>
-        <ProductInfoContainer>
+        <ProductInfoContainer
+          style={{
+            backgroundColor: theme === ThemeType.Dark ? "#231F20" : "#fff",
+          }}
+        >
           <Typography variant="h4" fontWeight={"bold"} gutterBottom>
             Tasty Plastic Shirt
           </Typography>
