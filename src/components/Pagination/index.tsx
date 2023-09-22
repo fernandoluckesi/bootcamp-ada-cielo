@@ -16,13 +16,13 @@ export const Pagination = () => {
         color="secondary"
         aria-label="outlined secondary button group"
       >
-        <Tooltip title="Página anterior" placement="left">
+        <Tooltip title="Previous page" placement="left">
           <Button disabled={currentPage === 1} onClick={() => changePage(currentPage - 1)}>
             <ArrowBackIosIcon />
           </Button>
         </Tooltip>
-        <Tooltip title="Próxima página" placement="right">
-          <Button disabled={isNextPageAvailable} onClick={() => changePage(currentPage + 1)}>
+        <Tooltip title="Next page" placement="right">
+          <Button disabled={!isNextPageAvailable} onClick={() => changePage(currentPage + 1)}>
             <ArrowForwardIosIcon />
           </Button>
         </Tooltip>
