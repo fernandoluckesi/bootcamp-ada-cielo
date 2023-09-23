@@ -140,21 +140,11 @@ export const Sidebar = () => {
           <Typography variant="body1" sx={{ mb: 1 }}>
             Rating
           </Typography>
-          <>
             <StarRatingSelector rating={5} onClick={() => handleRating(5)} isSelected={selectedRating === 5 ? true : false} />
-          </>
-          <>
             <StarRatingSelector rating={4} onClick={() => handleRating(4)} isSelected={selectedRating === 4 ? true : false} />
-          </>
-          <>
             <StarRatingSelector rating={3} onClick={() => handleRating(3)} isSelected={selectedRating === 3 ? true : false} />
-          </>
-          <>
             <StarRatingSelector rating={2} onClick={() => handleRating(2)} isSelected={selectedRating === 2 ? true : false} />
-          </>
-          <>
             <StarRatingSelector rating={1} onClick={() => handleRating(1)} isSelected={selectedRating === 1 ? true : false} />
-          </>
         </Box>
         <Divider sx={{ my: 2 }} />
         <Box sx={{ display: "flex", gap: "8px", flexDirection: "column" }}>
