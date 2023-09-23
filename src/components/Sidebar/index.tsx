@@ -44,10 +44,44 @@ const NumericFormatCustom = React.forwardRef<NumericFormatProps, CustomProps>(
   }
 );
 
+type CategoryType = {
+  title: string;
+  isSelected: boolean;
+};
+
+type CategoriesListType = CategoryType[];
+
+const categories: CategoriesListType = [
+  { title: "Shoes", isSelected: false },
+  { title: "Baby", isSelected: false },
+  { title: "Outdoor", isSelected: false },
+  { title: "Electronics", isSelected: false },
+  { title: "Sports", isSelected: false },
+];
+
 export const Sidebar = () => {
+  const [categoriesList, setCategoriesList] =
+    useState<CategoriesListType>(categories);
+  const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [minPrice, setMinPrice] = useState<string>("0");
   const [maxPrice, setMaxPrice] = useState<string>("0");
   const { handleSidebarStatus, open } = useSidebar();
+
+  const handleSelectedCategory = (term: string) => {
+    const titlePositionInArray = categoriesList.findIndex((e) => e.title === term);
+    const selectedCategoryPositionInArray = categoriesList.findIndex((e) => e.title === selectedCategory);
+
+    if (titlePositionInArray >= 0) {
+      if (term === selectedCategory) {
+        setSelectedCategory("");
+        categoriesList[titlePositionInArray] = { title: term, isSelected: false };
+      } else {
+        setSelectedCategory(term);
+        categoriesList[titlePositionInArray] = { title: term, isSelected: true };
+        categoriesList[selectedCategoryPositionInArray] = {title: selectedCategory, isSelected: false};
+      }
+    }
+  };
 
   const handleMinPriceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setMinPrice(event.target.value);
@@ -56,14 +90,6 @@ export const Sidebar = () => {
   const handleMaxPriceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setMaxPrice(event.target.value);
   };
-
-  const categories: string[] = [
-    "Shoes",
-    "Baby",
-    "Outdoor",
-    "Electronics",
-    "Sports",
-  ];
 
   const drawerWidth: number = 300;
 
@@ -81,11 +107,12 @@ export const Sidebar = () => {
             Categories
           </Typography>
           <Box sx={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
-            {categories.map((category) => (
+            {categoriesList.map(({ title, isSelected }) => (
               <Chip
-                key={category}
-                label={category}
-                onClick={() => console.log(category)}
+                key={title}
+                label={title}
+                onClick={() => handleSelectedCategory(title)}
+                color={isSelected ? "primary" : "default"}
               />
             ))}
           </Box>
