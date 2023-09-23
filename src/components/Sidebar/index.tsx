@@ -63,24 +63,42 @@ export const Sidebar = () => {
   const [categoriesList, setCategoriesList] =
     useState<CategoriesListType>(categories);
   const [selectedCategory, setSelectedCategory] = useState<string>("");
+  const [selectedRating, setSelectedRating] = useState<number>(0);
   const [minPrice, setMinPrice] = useState<string>("0");
   const [maxPrice, setMaxPrice] = useState<string>("0");
   const { handleSidebarStatus, open } = useSidebar();
 
   const handleSelectedCategory = (term: string) => {
-    const titlePositionInArray = categoriesList.findIndex((e) => e.title === term);
-    const selectedCategoryPositionInArray = categoriesList.findIndex((e) => e.title === selectedCategory);
+    const titlePositionInArray = categoriesList.findIndex(
+      (e) => e.title === term
+    );
+    const selectedCategoryPositionInArray = categoriesList.findIndex(
+      (e) => e.title === selectedCategory
+    );
 
     if (titlePositionInArray >= 0) {
       if (term === selectedCategory) {
         setSelectedCategory("");
-        categoriesList[titlePositionInArray] = { title: term, isSelected: false };
+        categoriesList[titlePositionInArray] = {
+          title: term,
+          isSelected: false,
+        };
       } else {
         setSelectedCategory(term);
-        categoriesList[titlePositionInArray] = { title: term, isSelected: true };
-        categoriesList[selectedCategoryPositionInArray] = {title: selectedCategory, isSelected: false};
+        categoriesList[titlePositionInArray] = {
+          title: term,
+          isSelected: true,
+        };
+        categoriesList[selectedCategoryPositionInArray] = {
+          title: selectedCategory,
+          isSelected: false,
+        };
       }
     }
+  };
+
+  const handleRating = (rating: number) => {
+    setSelectedRating(rating === selectedRating ? 0 : rating);
   };
 
   const handleMinPriceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -122,11 +140,21 @@ export const Sidebar = () => {
           <Typography variant="body1" sx={{ mb: 1 }}>
             Rating
           </Typography>
-          <StarRatingSelector rating={5} onClick={() => console.log(5)} />
-          <StarRatingSelector rating={4} onClick={() => console.log(4)} />
-          <StarRatingSelector rating={3} onClick={() => console.log(3)} />
-          <StarRatingSelector rating={2} onClick={() => console.log(2)} />
-          <StarRatingSelector rating={1} onClick={() => console.log(1)} />
+          <>
+            <StarRatingSelector rating={5} onClick={() => handleRating(5)} isSelected={selectedRating === 5 ? true : false} />
+          </>
+          <>
+            <StarRatingSelector rating={4} onClick={() => handleRating(4)} isSelected={selectedRating === 4 ? true : false} />
+          </>
+          <>
+            <StarRatingSelector rating={3} onClick={() => handleRating(3)} isSelected={selectedRating === 3 ? true : false} />
+          </>
+          <>
+            <StarRatingSelector rating={2} onClick={() => handleRating(2)} isSelected={selectedRating === 2 ? true : false} />
+          </>
+          <>
+            <StarRatingSelector rating={1} onClick={() => handleRating(1)} isSelected={selectedRating === 1 ? true : false} />
+          </>
         </Box>
         <Divider sx={{ my: 2 }} />
         <Box sx={{ display: "flex", gap: "8px", flexDirection: "column" }}>
